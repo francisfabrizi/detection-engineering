@@ -70,9 +70,40 @@ sigma convert -t splunk -p splunk_cim Sigma-Rules/Windows-Recon-Commands/windows
 
 The query assumes that relevant endpoint process telemetry is available and correctly mapped to the Splunk CIM data model.
 
-## 6. Validation
+## 6. Microsoft Sentinel Implementation
+
+A Microsoft Sentinel equivalent was developed using Kusto Query Language (KQL).
+
+**Data source:**
+- Table: `SecurityEvent`
+- Event ID: `4688` – Process Creation
+
+**Detection logic:**
+
+The query identifies execution of the same reconnaissance commands as the Sigma rule, including user and group enumeration through `net.exe`.
+
+**Fields analysed:**
+- `NewProcessName`
+- `CommandLine`
+- `SubjectUserName`
+- `Computer`
+- `TimeGenerated`
+
+**Query file:**
+
+`windows-recon-commands.kql`
+
+**Telemetry requirements:**
+
+Windows process creation auditing must be enabled. The policy **Include command line in process creation events** must also be enabled to capture command-line arguments.
+
+The workspace must ingest the relevant Windows Security Events into the `SecurityEvent` table.
+
+**Validation status:** KQL query written but not yet tested against live Sentinel telemetry.## 6. Validation
 
 The Sigma rule was validated locally using pySigma.
+
+## 7. Validation
 
 Validation covered:
 
@@ -86,7 +117,7 @@ The Splunk conversion also completed successfully.
 
 Note: Successful parsing and conversion do not establish detection effectiveness. Further testing against representative endpoint telemetry is required.
 
-## 7. Potential False Positives
+## 8. Potential False Positives
 
 Legitimate activity may trigger this detection, including:
 
@@ -98,7 +129,7 @@ Legitimate activity may trigger this detection, including:
 
 Additional investigation should consider the user account, parent process, command-line arguments, host role and surrounding activity.
 
-## 8. Limitations and Future Improvements
+## 9. Limitations and Future Improvements
 
 Current limitations:
 
@@ -116,7 +147,7 @@ Potential improvements:
 * Develop a Microsoft Sentinel KQL equivalent.
 * Tune detection logic based on observed false positives.
 
-## 9. Development and Attribution
+## 10. Development and Attribution
 
 This project builds on practical detection engineering training and hands-on exercises.
 
@@ -124,7 +155,7 @@ The rule has been independently documented, validated and converted into a Splun
 
 Training source: TryHackMe.
 
-## 10. Disclaimer
+## 11. Disclaimer
 
 This detection is experimental and intended for educational and professional development purposes.
 

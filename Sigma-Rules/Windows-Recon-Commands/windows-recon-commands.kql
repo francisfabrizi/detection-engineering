@@ -1,0 +1,30 @@
+// Windows Reconnaissance Commands Detection
+// Data source: SecurityEvent
+// Event ID: 4688 - Process Creation
+// MITRE ATT&CK: T1087, T1082, T1016
+
+SecurityEvent
+| where EventID == 4688
+| extend ProcessName = tostring(NewProcessName),
+ProcessCommandLine = tostring(CommandLine)
+| where
+ProcessName endswith @"\whoami.exe"
+or ProcessName endswith @"\ipconfig.exe"
+or ProcessName endswith @"\nltest.exe"
+or ProcessName endswith @"\systeminfo.exe"
+or (
+ProcessName endswith @"\net.exe"
+and (
+ProcessCommandLine contains " user"
+or ProcessCommandLine contains " group"
+or ProcessCommandLine contains " localgroup"
+)
+)
+| project
+TimeGenerated,
+Computer,
+SubjectUserName,
+ProcessName,
+ProcessCommandLine,
+EventID
+| order by TimeGenerated desc
