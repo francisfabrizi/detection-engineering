@@ -1,0 +1,1 @@
+Processes.process_path IN ("*\\whoami.exe", "*\\ipconfig.exe", "*\\nltest.exe", "*\\systeminfo.exe") OR (Processes.process_path="*\\net.exe" (Processes.process IN ("* user*", "* group*", "* localgroup*")))

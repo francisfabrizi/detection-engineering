@@ -1,0 +1,43 @@
+title: Windows Recon Commands Detection
+id: 82309d72-38a3-4e85-9c5f-aac6f3417bfe
+status: experimental
+description: Detects Windows reconnaissance commands used to discover user accounts, system information and network configuration.
+references:
+  - https://attack.mitre.org/techniques/T1087/
+  - https://attack.mitre.org/techniques/T1082/
+  - https://attack.mitre.org/techniques/T1016/
+author: LogikSec
+date: 2026-11-06
+tags:
+  - attack.discovery
+  - attack.t1087
+  - attack.t1082
+  - attack.t1016
+
+logsource:
+  category: process_creation
+  product: windows
+
+detection:
+  selection_recon_binaries:
+    Image|endswith:
+      - '\whoami.exe'
+      - '\ipconfig.exe'
+      - '\nltest.exe'
+      - '\systeminfo.exe'
+
+  selection_net_recon:
+    Image|endswith: '\net.exe'
+    CommandLine|contains:
+      - ' user'
+      - ' group'
+      - ' localgroup'
+
+  condition: 1 of selection_*
+
+falsepositives:
+  - Legitimate IT administrator activity
+  - Helpdesk troubleshooting scripts
+  - Asset inventory and CMDB tools
+
+level: low
