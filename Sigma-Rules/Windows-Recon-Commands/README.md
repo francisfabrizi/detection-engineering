@@ -103,7 +103,38 @@ The workspace must ingest the relevant Windows Security Events into the `Securit
 
 The Sigma rule was validated locally using pySigma.
 
-## 7. Validation
+## 7. Elastic Security Implementation
+
+An Elastic Security equivalent was developed using Kibana Query Language (KQL).
+
+**Platform:**
+- Elastic Security
+- Kibana Query Language (KQL)
+- Elastic Common Schema (ECS)
+
+**Detection logic:**
+
+The query identifies execution of the same reconnaissance commands covered by the Sigma rule, including user and group enumeration through `net.exe`.
+
+**Fields analysed:**
+- `event.category`
+- `event.type`
+- `process.name`
+- `process.args`
+
+**Query file:**
+
+`elastic-recon-detection.kql`
+
+**Implementation requirements:**
+
+The Elastic environment must collect process creation telemetry and populate the relevant ECS fields.
+
+The query is designed for use as a KQL filter within an Elastic Security detection rule.
+
+**Validation status:** Query written but not yet tested against live Elastic telemetry.
+
+## 8. Validation
 
 Validation covered:
 
@@ -117,7 +148,7 @@ The Splunk conversion also completed successfully.
 
 Note: Successful parsing and conversion do not establish detection effectiveness. Further testing against representative endpoint telemetry is required.
 
-## 8. Potential False Positives
+## 9. Potential False Positives
 
 Legitimate activity may trigger this detection, including:
 
@@ -129,7 +160,7 @@ Legitimate activity may trigger this detection, including:
 
 Additional investigation should consider the user account, parent process, command-line arguments, host role and surrounding activity.
 
-## 9. Limitations and Future Improvements
+## 10. Limitations and Future Improvements
 
 Current limitations:
 
@@ -147,7 +178,7 @@ Potential improvements:
 * Develop a Microsoft Sentinel KQL equivalent.
 * Tune detection logic based on observed false positives.
 
-## 10. Development and Attribution
+## 11. Development and Attribution
 
 This project builds on practical detection engineering training and hands-on exercises.
 
@@ -155,7 +186,7 @@ The rule has been independently documented, validated and converted into a Splun
 
 Training source: TryHackMe.
 
-## 11. Disclaimer
+## 12. Disclaimer
 
 This detection is experimental and intended for educational and professional development purposes.
 

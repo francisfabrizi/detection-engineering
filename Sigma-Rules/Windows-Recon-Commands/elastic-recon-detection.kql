@@ -1,0 +1,19 @@
+event.category: "process" and
+event.type: "start" and
+(
+    process.name: (
+        "whoami.exe" or
+        "ipconfig.exe" or
+        "nltest.exe" or
+        "systeminfo.exe"
+    )
+    or
+    (
+        process.name: "net.exe" and
+        process.args: (
+            "user" or
+            "group" or
+            "localgroup"
+        )
+    )
+)
