@@ -1,18 +1,22 @@
-title: Windows Recon Commands Detection
+title: Windows Reconnaissance Commands Detection
 id: 82309d72-38a3-4e85-9c5f-aac6f3417bfe
 status: experimental
-description: Detects Windows reconnaissance commands used to discover user accounts, system information and network configuration.
+description: Detects execution of common Windows commands associated with user, group, system and network reconnaissance.
 references:
-  - https://attack.mitre.org/techniques/T1087/
-  - https://attack.mitre.org/techniques/T1082/
+  - https://attack.mitre.org/techniques/T1033/
   - https://attack.mitre.org/techniques/T1016/
-author: LogikSec
-date: 2026-11-06
+  - https://attack.mitre.org/techniques/T1082/
+  - https://attack.mitre.org/techniques/T1087/
+  - https://attack.mitre.org/techniques/T1069/
+author: Francis Fabrizi
+date: 2026-11-22
 tags:
   - attack.discovery
-  - attack.t1087
-  - attack.t1082
+  - attack.t1033
   - attack.t1016
+  - attack.t1082
+  - attack.t1087
+  - attack.t1069
 
 logsource:
   category: process_creation
