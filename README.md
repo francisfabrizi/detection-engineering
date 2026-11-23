@@ -1,8 +1,8 @@
 # Detection Engineering Portfolio
 
-A practical cybersecurity portfolio focused on detection engineering, threat hunting and security monitoring.
+A practical cybersecurity portfolio documenting hands-on projects in detection engineering, threat hunting and security monitoring.
 
-This repository contains hands-on projects developed by **LogikSec**, demonstrating the development, validation and implementation of security detections across SIEM platforms.
+Developed by Francis Fabrizi, this repository showcases the research, development, testing and implementation of security detections across multiple SIEM platforms.
 
 ## Areas of Focus
 
