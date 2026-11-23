@@ -43,8 +43,10 @@ A Sigma detection designed to identify Windows reconnaissance activity involving
 
 **Available implementations:**
 
-* Sigma YAML
-* Splunk SPL using the Splunk CIM processing pipeline
+* Sigma YAML (vendor-neutral rule)
+* Splunk SPL, converted using the splunk_cim processing pipeline
+* Microsoft Sentinel KQL, using Kusto on SecurityEvent event ID 4688
+* Elastic Security KQL, using Kibana on ECS fields process.name and process.args
 
 **Validation:** Successfully parsed and validated locally using pySigma. Splunk conversion completed successfully.
 
